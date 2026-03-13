@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纸箱成本计算器 - 免费版</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部广告位（变现核心） -->
+        <div class="ad-box">
+            <p style="text-align:center; color:#999; font-size:12px;">【广告合作：微信/电话 138XXXX8888】</p>
+            <img src="https://imgchr.com/i/ZVz80e" alt="原纸批发-厂家直供" style="width:100%; border-radius:4px;">
+        </div>
+
+        <!-- 标题 -->
+        <div class="header">
+            <text class="title">纸箱成本计算器</text>
+        </div>
+
+        <!-- 会员提示（变现入口） -->
+        <div class="vip-tip">
+            💡 批量计算/导出Excel功能请开通会员（9.9元/月）→ 微信：138XXXX8888
+        </div>
+
+        <!-- 纸箱类型+数量 -->
+        <div class="card">
+            <div class="card-header">
+                <text class="card-title">📦 纸箱类型</text>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <text class="label">纸箱类型</text>
+                    <div class="picker">普通纸箱</div>
+                </div>
+                <div class="col">
+                    <text class="label">生产数量</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="quantity"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- 长宽高+钉舌+毛宽 -->
+        <div class="card">
+            <div class="card-header">
+                <text class="card-title">📐 普通纸箱信息</text>
+            </div>
+            <div class="row compact">
+                <div class="col">
+                    <text class="label">长(mm)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="length"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+                <div class="col">
+                    <text class="label">宽(mm)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="width"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+                <div class="col">
+                    <text class="label">高(mm)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="height"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+            </div>
+            <div class="row compact">
+                <div class="col">
+                    <text class="label">钉舌(mm)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="nailTongue"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+                <div class="col">
+                    <text class="label">毛宽(mm)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="grossWidth"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- 材料与工艺 -->
+        <div class="card">
+            <div class="card-header">
+                <text class="card-title">🏭 材料与工艺</text>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <text class="label">纸板层数</text>
+                    <select class="picker" onchange="handleLayerChange(event)">
+                        <option value="0">三层</option>
+                        <option value="1">五层</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <text class="label">瓦楞类型</text>
+                    <select class="picker" id="corrugatedSelect" onchange="handleCorrugatedChange(event)">
+                        <option value="0">E楞(2mm)</option>
+                        <option value="1">B楞(3mm)</option>
+                        <option value="2">C楞(3.5mm)</option>
+                        <option value="3">A楞(4mm)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <text class="label">纸板单价(元/㎡)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="materialPrice"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+                <div class="col">
+                    <text class="label">印刷单价(元/㎡)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="printPrice"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <text class="label">印刷比例(%)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="printRatio"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- 成本分摊 -->
+        <div class="card">
+            <div class="card-header">
+                <text class="card-title">💰 成本分摊</text>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <text class="label">印刷版价格(元)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="platePrice"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+                <div class="col">
+                    <text class="label">运费(元)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="shippingCost"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- 税费与利润 -->
+        <div class="card">
+            <div class="card-header">
+                <text class="card-title">📊 税费与利润</text>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <text class="label">税点(%)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="taxRate"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+                <div class="col">
+                    <text class="label">利润(元)</text>
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value="0" 
+                        data-field="profitAmount"
+                        oninput="handleInputChange(event)"
+                        onblur="handleInputBlur(event)"
+                        class="input"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- 中间广告位 -->
+        <div class="ad-box">
+            <img src="https://imgchr.com/i/ZVzOGH" alt="纸箱设备维修-上门服务" style="width:100%; border-radius:4px;">
+            <p style="text-align:center; color:#999; font-size:12px;">广告位招租：微信 138XXXX8888</p>
+        </div>
+
+        <!-- 计算结果 -->
+        <div class="card result-card">
+            <div class="card-header">
+                <text class="card-title">📈 普通纸箱计算结果</text>
+            </div>
+            <div class="result-row compact">
+                <div class="result-item">
+                    <text class="result-label">纸箱面积</text>
+                    <text class="result-value area-value" id="areaResult">0.0000㎡</text>
+                </div>
+                <div class="result-item">
+                    <text class="result-label">材料成本</text>
+                    <text class="result-value" id="materialCostResult">¥0.00</text>
+                </div>
+                <div class="result-item">
+                    <text class="result-label">印刷成本</text>
+                    <text class="result-value" id="printCostResult">¥0.00</text>
+                </div>
+                <div class="result-item">
+                    <text class="result-label">版费分摊</text>
+                    <text class="result-value" id="plateCostResult">¥0.00</text>
+                </div>
+                <div class="result-item">
+                    <text class="result-label">运费分摊</text>
+                    <text class="result-value" id="shippingCostResult">¥0.00</text>
+                </div>
+            </div>
+            <div class="result-row compact">
+                <div class="result-item">
+                    <text class="result-label">税前成本</text>
+                    <text class="result-value" id="preTaxCostResult">¥0.00</text>
+                </div>
+                <div class="result-item">
+                    <text class="result-label">税费</text>
+                    <text class="result-value" id="taxAmountResult">¥0.00</text>
+                </div>
+                <div class="result-item">
+                    <text class="result-label">利润</text>
+                    <text class="result-value" id="profitAmountResult">¥0.00</text>
+                </div>
+                <div class="result-item highlight">
+                    <text class="result-label">最终报价</text>
+                    <text class="result-value final" id="finalPriceResult">¥0.00</text>
+                </div>
+            </div>
+            <div class="volume-row">
+                <div class="volume-item">
+                    <text class="volume-label">单个体积</text>
+                    <text class="volume-value" id="singleVolumeResult">0.000000m³</text>
+                </div>
+                <div class="volume-item">
+                    <text class="volume-label">总体积</text>
+                    <text class="volume-value" id="totalVolumeResult">0.000m³</text>
+                </div>
+            </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="action-row">
+            <button class="reset-btn" onclick="resetAll()">重置数据</button>
+        </div>
+
+        <!-- 底部广告位 -->
+        <div class="ad-box">
+            <p style="text-align:center; font-weight:bold; color:#333;">纸箱厂接单：全国可做，价格优惠</p>
+            <p style="text-align:center;">联系电话：139XXXX9999 | 微信同号</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
